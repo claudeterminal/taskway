@@ -185,6 +185,54 @@
     <h2 style="font-size:21px;margin-bottom:12px">What’s New</h2>
     <p style="color:var(--mut);font-size:13px">Version 1.0 — Say hello to your leaf buddy, hands-free voice commands, and the new rainforest theme. 🌿</p>
   </div>
+  <style>
+    .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:880px){.rgrid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.rgrid{grid-template-columns:1fr}}
+    .rcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .rcard.featured{border:2px solid var(--green);box-shadow:0 8px 24px rgba(31,170,87,.2)}
+    .rhead{display:flex;gap:11px;align-items:center}
+    .ricon{width:46px;height:46px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font-size:23px;color:#fff;font-weight:800}
+    .rmeta{flex:1;min-width:0}
+    .rmeta b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rmeta small{font-size:11px;color:var(--mut);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rstars{font-size:10px;color:#feb500;margin-top:2px}.rstars span{color:var(--mut);font-weight:600}
+    .rview{background:#e8eefb;color:#0071e3;font-weight:800;font-size:12px;padding:5px 17px;border-radius:999px;text-decoration:none;flex:none}
+    .featured .rview{background:var(--green);color:#fff}
+    .rbadge{display:inline-block;font-size:9px;font-weight:800;color:#fff;background:var(--green);padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+    .rthumbs{display:flex;gap:7px;margin-top:12px}
+    .rt{flex:1;aspect-ratio:9/16;border-radius:9px;display:flex;align-items:flex-end;justify-content:center;padding:7px;font-size:9px;font-weight:800;color:#fff;text-align:center;line-height:1.15}
+  </style>
+  <div class="wrap sec">
+    <h2>Results for “time management”</h2>
+    <div class="rgrid">
+      <!-- TASKWAY — first -->
+      <div class="rcard featured">
+        <div class="rhead">
+          <div class="ricon" style="background:linear-gradient(160deg,#0c3a23,#04130c)"><svg viewBox="0 0 96 96" width="30" height="30"><path d="M48 8C24 16 14 40 18 76c34 6 60-10 64-50C72 12 60 6 48 8z" fill="#7dffa6"/><path d="M30 66C40 44 56 30 72 24" stroke="#04130c" stroke-width="4" stroke-linecap="round"/></svg></div>
+          <div class="rmeta"><b>TaskWay <span class="rbadge">YOURS</span></b><small>The most motivating task app</small><div class="rstars">★★★★★ <span>New</span></div></div>
+          <a class="rview" href="#">Get</a>
+        </div>
+        <div class="rthumbs">
+          <div class="rt" style="background:linear-gradient(180deg,#0a2418,#1faa57)">Leaf coach 🌿</div>
+          <div class="rt" style="background:linear-gradient(180deg,#0a2418,#34e39a)">Say “done” 🎙️</div>
+          <div class="rt" style="background:linear-gradient(180deg,#0a2418,#0c3a23)">Day in thirds</div>
+        </div>
+      </div>
+      <!-- competitors -->
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#f0a39a">✓</div><div class="rmeta"><b>Structured: Daily Planner</b><small>Visual Calendar & Organizer</small><div class="rstars">★★★★★ <span>Editors’ Choice</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#f3ddd9"></div><div class="rt" style="background:#efe7e0"></div><div class="rt" style="background:#f6efe6"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#e8554e">🍅</div><div class="rmeta"><b>Focus Keeper – Pomodoro</b><small>ADHD Organizer & Productivity</small><div class="rstars">★★★★★ <span>31K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#fbe3df"></div><div class="rt" style="background:#fdeede"></div><div class="rt" style="background:#f6e7e6"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#3a7bd5">⏱</div><div class="rmeta"><b>ATracker Time Tracker</b><small>Daily Task Habit Goal Routine</small><div class="rstars">★★★★★ <span>3.2K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#1c2733"></div><div class="rt" style="background:#e9eef5"></div><div class="rt" style="background:#eef1f4"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#4a90e2">✓</div><div class="rmeta"><b>TickTick: To-Do & Calendar</b><small>Task remind, planner, countdown</small><div class="rstars">★★★★★ <span>Editors’ Choice</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#eef3fb"></div><div class="rt" style="background:#eaf4ee"></div><div class="rt" style="background:#f1ecfa"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#7bbf6a">🌱</div><div class="rmeta"><b>Flora – Green Focus</b><small>To-do list, habit tracker</small><div class="rstars">★★★★★ <span>82K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#e3efe0"></div><div class="rt" style="background:#dcebe6"></div><div class="rt" style="background:#e8f0dd"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#f5a623">⏰</div><div class="rmeta"><b>TimeFinder: Time Blocking</b><small>Daily Schedule, Hourly Planner</small><div class="rstars">★★★★★ <span>1.9K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#f5f5f5"></div><div class="rt" style="background:#15202b"></div><div class="rt" style="background:#1c1c1e"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#e8607a">✓</div><div class="rmeta"><b>Habit Tracker</b><small>Goal Tracker & ADHD Planner</small><div class="rstars">★★★★★ <span>143K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#fbe6ea"></div><div class="rt" style="background:#fdeef0"></div><div class="rt" style="background:#f8e9ec"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#5b2a86">⏻</div><div class="rmeta"><b>Toggl Track: Hours & Time</b><small>Tracking & Hours Management</small><div class="rstars">★★★★★ <span>9.4K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#2a1442"></div><div class="rt" style="background:#e9d8f0"></div><div class="rt" style="background:#f5ece2"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#f2c94c;color:#604a00">🔁</div><div class="rmeta"><b>Routine Planner, Habit</b><small>To Do List & Flow App for ADHD</small><div class="rstars">★★★★★ <span>Editors’ Choice</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#f0f0f0"></div><div class="rt" style="background:#fbf3d6"></div><div class="rt" style="background:#fcf6da"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#d0021b">⏲</div><div class="rmeta"><b>Time Timer</b><small>Visual time management</small><div class="rstars">★★★★☆ <span>14K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#f4f4f4"></div><div class="rt" style="background:#efefef"></div><div class="rt" style="background:#f2f2f2"></div></div></div>
+      <div class="rcard"><div class="rhead"><div class="ricon" style="background:#2564cf">☑</div><div class="rmeta"><b>Microsoft To Do</b><small>Capture Tasks & Set Reminders</small><div class="rstars">★★★★★ <span>262K</span></div></div><a class="rview" href="#">View</a></div><div class="rthumbs"><div class="rt" style="background:#eef1f6"></div><div class="rt" style="background:#dfeae6"></div><div class="rt" style="background:#e6efea"></div></div></div>
+    </div>
+  </div>
 </div>
 <footer>Design proof · TaskWay Labs · Not affiliated with Apple</footer>
 </body>
