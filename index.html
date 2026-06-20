@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MotiTask — The Most Motivating Task App</title>
+<meta name="description" content="MotiTask is the most motivating to-do app. A cheerful leaf buddy cheers you on, hands-free voice control, focus music, and smart packing lists. Get more done." />
+<meta property="og:title" content="MotiTask — The Most Motivating Task App" />
+<meta property="og:description" content="A cheerful leaf buddy that cheers you on, voice control, and focus music. Get more done." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* rainforest green palette — everything green */
+    --bg:#04130c; --bg2:#0a2418; --card:rgba(120,255,180,.06);
+    --stroke:rgba(140,255,190,.16);
+    --green:#1faa57; --green2:#34e39a; --lime:#7dffa6; --deep:#0c3a23; --moss:#3fbf72;
+    --txt:#eafff2; --mut:#8fc9a8;
+    --grad:linear-gradient(120deg,#1faa57,#34e39a 55%,#7dffa6);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.5}
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.3;z-index:0;pointer-events:none}
+  .glow.g1{width:480px;height:480px;background:var(--green2);top:-120px;left:-80px}
+  .glow.g2{width:520px;height:520px;background:var(--green);top:240px;right:-160px;opacity:.25}
+  .glow.g3{width:420px;height:420px;background:var(--lime);bottom:-160px;left:30%;opacity:.14}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(4,19,12,.65);border-bottom:1px solid var(--stroke)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .logo .mark{width:34px;height:34px}
+  .navlinks{display:flex;gap:28px;align-items:center}
+  .navlinks a{color:var(--mut);text-decoration:none;font-weight:500;font-size:15px;transition:.2s}
+  .navlinks a:hover{color:var(--txt)}
+  .btn{display:inline-flex;align-items:center;gap:9px;border:none;cursor:pointer;text-decoration:none;
+    font-family:inherit;font-weight:700;font-size:15px;border-radius:999px;padding:12px 22px;
+    background:var(--green);color:#04130c;transition:transform .15s,box-shadow .25s,background .2s;
+    box-shadow:0 8px 30px rgba(31,170,87,.4)}
+  .btn:hover{transform:translateY(-2px);background:var(--green2);box-shadow:0 14px 40px rgba(52,227,154,.5)}
+  .btn.ghost{background:transparent;color:var(--lime);border:1px solid var(--stroke);box-shadow:none}
+  .btn.ghost:hover{background:rgba(52,227,154,.1)}
+  @media(max-width:720px){.navlinks .hidem{display:none}}
+
+  header{padding:90px 0 40px;position:relative}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--lime);
+    background:rgba(52,227,154,.1);border:1px solid rgba(52,227,154,.3);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+  h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.03em;font-weight:800}
+  h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--mut);font-size:clamp(17px,2.4vw,21px);margin:22px 0 32px;max-width:520px}
+  @media(max-width:900px){.sub{margin-left:auto;margin-right:auto}}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  @media(max-width:900px){.cta-row{justify-content:center}}
+  .stat-row{display:flex;gap:32px;margin-top:40px}
+  @media(max-width:900px){.stat-row{justify-content:center}}
+  .stat b{font-size:26px;font-weight:800;display:block;color:var(--lime)}
+  .stat span{color:var(--mut);font-size:13px}
+
+  /* phone mockup — locked to phone ratio, never stretches wide */
+  .phone-stage{display:flex;justify-content:center;perspective:1400px;position:relative}
+  .phone{width:300px;aspect-ratio:300/620;max-width:82vw;border-radius:46px;
+    background:linear-gradient(165deg,#0c3a23,#04130c);border:1px solid var(--stroke);
+    box-shadow:0 40px 90px rgba(0,0,0,.6),inset 0 0 0 2px rgba(140,255,190,.05);
+    padding:14px;position:relative;transform:rotateY(-12deg) rotateX(4deg);animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:rotateY(-12deg) rotateX(4deg) translateY(0)}50%{transform:rotateY(-9deg) rotateX(3deg) translateY(-14px)}}
+  .notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#000;border-radius:999px;z-index:3}
+  .screen{width:100%;height:100%;border-radius:34px;background:radial-gradient(120% 80% at 50% 0%,#0a2418,#04120b);overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;padding:30px 16px 18px}
+  .scr-title{font-size:13px;color:var(--mut);font-weight:600;letter-spacing:.04em;margin-bottom:14px}
+
+  .buddy{width:96px;height:96px;position:relative;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5px) rotate(3deg)}}
+  .ring{position:absolute;inset:-14px}
+  .ring circle{fill:none;stroke-width:7;stroke-linecap:round}
+  .ring .bg{stroke:rgba(140,255,190,.1)}
+  .ring .fg{stroke:url(#rg);stroke-dasharray:360;stroke-dashoffset:90;transform:rotate(-90deg);transform-origin:center;animation:count 8s linear infinite}
+  @keyframes count{from{stroke-dashoffset:30}to{stroke-dashoffset:360}}
+
+  .count-num{margin-top:14px;font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .count-task{font-size:13px;color:var(--txt);font-weight:600;margin-top:2px}
+  .controls{display:flex;gap:9px;margin-top:14px}
+  .ctl{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--stroke);background:rgba(140,255,190,.05);color:var(--txt)}
+  .ctl.done{background:var(--green2);color:#04130c;border:none}
+  .ctl.play{background:var(--green);color:#04130c;border:none}
+  .mic{position:absolute;bottom:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--green2);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(52,227,154,.5);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,227,154,.5)}70%{box-shadow:0 0 0 16px rgba(52,227,154,0)}100%{box-shadow:0 0 0 0 rgba(52,227,154,0)}}
+  .voice-chip{position:absolute;bottom:24px;left:16px;font-size:11px;font-weight:600;color:var(--lime);background:rgba(52,227,154,.12);padding:5px 10px;border-radius:999px;opacity:0;animation:say 4s infinite}
+  @keyframes say{0%,40%{opacity:0;transform:translateY(6px)}50%,80%{opacity:1;transform:translateY(0)}90%,100%{opacity:0}}
+  .tasklist{width:100%;margin-top:14px;display:flex;flex-direction:column;gap:7px}
+  .trow{display:flex;align-items:center;gap:9px;background:rgba(140,255,190,.05);border:1px solid var(--stroke);border-radius:12px;padding:8px 11px;font-size:12px;font-weight:500}
+  .trow .ck{width:16px;height:16px;border-radius:50%;border:2px solid var(--mut);flex:none}
+  .trow.done .ck{background:var(--green2);border-color:var(--green2)}
+  .trow.done span{color:var(--mut);text-decoration:line-through}
+  .trow:nth-child(1){animation:pop 4s infinite}
+  @keyframes pop{0%,60%{background:rgba(140,255,190,.05)}70%,100%{background:rgba(52,227,154,.14)}}
+
+  /* TIKI TORCH with animated fire */
+  .tiki{position:absolute;bottom:-10px;left:-14px;width:48px;z-index:4;animation:sway 4s ease-in-out infinite}
+  @media(max-width:900px){.tiki{left:6%}}
+  @keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+  .tiki .pole{position:absolute;top:60px;left:50%;transform:translateX(-50%);width:14px;height:160px;
+    border-radius:6px;background:repeating-linear-gradient(180deg,#6b4a2a,#6b4a2a 10px,#5a3d22 10px,#5a3d22 20px)}
+  .tiki .cup{position:absolute;top:48px;left:50%;transform:translateX(-50%);width:30px;height:26px;border-radius:6px 6px 10px 10px;background:linear-gradient(#7a5430,#4a3018)}
+  .flame{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:26px;height:46px;
+    background:radial-gradient(circle at 50% 75%,#fff6c0,#ffd23f 30%,#ff7a1a 60%,#ff3d00 85%);
+    border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+    filter:blur(.4px);transform-origin:50% 90%;animation:flick .28s ease-in-out infinite alternate;
+    box-shadow:0 0 24px 6px rgba(255,140,20,.55)}
+  .flame.inner{width:13px;height:28px;background:radial-gradient(circle at 50% 80%,#fff,#ffe27a 50%,#ff9a2e 90%);animation-duration:.22s;top:2px}
+  @keyframes flick{0%{transform:translateX(-50%) scaleY(.92) scaleX(1.05) rotate(-3deg)}100%{transform:translateX(-50%) scaleY(1.1) scaleX(.95) rotate(3deg)}}
+
+  section{padding:90px 0;position:relative}
+  .eyebrow{color:var(--lime);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;text-align:center}
+  h2{font-size:clamp(30px,4.5vw,46px);text-align:center;letter-spacing:-.02em;margin:12px 0 16px;font-weight:800}
+  .lead{color:var(--mut);text-align:center;max-width:600px;margin:0 auto 54px;font-size:18px}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .feat{background:var(--card);border:1px solid var(--stroke);border-radius:22px;padding:28px;transition:transform .25s,border-color .25s,background .25s}
+  .feat:hover{transform:translateY(-6px);border-color:rgba(52,227,154,.55);background:rgba(52,227,154,.07)}
+  .feat .ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px;background:rgba(140,255,190,.08)}
+  .feat h3{font-size:20px;margin-bottom:8px;font-weight:700}
+  .feat p{color:var(--mut);font-size:15px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+  .step{position:relative;padding:30px 24px;background:var(--card);border:1px solid var(--stroke);border-radius:22px}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:24px;width:40px;height:40px;border-radius:12px;background:var(--green);color:#04130c;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .step h3{margin:14px 0 8px;font-size:19px}
+  .step p{color:var(--mut);font-size:15px}
+
+  .download{text-align:center}
+  .dlbox{background:linear-gradient(135deg,rgba(31,170,87,.18),rgba(52,227,154,.1));border:1px solid var(--stroke);border-radius:30px;padding:56px 28px;margin-top:10px;position:relative;overflow:hidden}
+  .dlgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:760px;margin:34px auto 0}
+  @media(max-width:760px){.dlgrid{grid-template-columns:repeat(2,1fr)}}
+  .dl{display:flex;align-items:center;gap:12px;justify-content:center;text-decoration:none;color:var(--txt);background:rgba(4,19,12,.5);border:1px solid var(--stroke);border-radius:16px;padding:16px 14px;transition:transform .15s,border-color .2s,background .2s}
+  .dl:hover{transform:translateY(-4px);border-color:var(--green2);background:rgba(52,227,154,.1)}
+  .dl svg{width:26px;height:26px;flex:none}
+  .dl .t{text-align:left;line-height:1.15}
+  .dl .t small{display:block;font-size:10px;color:var(--mut);font-weight:500}
+  .dl .t b{font-size:15px;font-weight:700}
+
+  footer{border-top:1px solid var(--stroke);padding:40px 0;text-align:center;color:var(--mut);font-size:14px}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+
+<svg width="0" height="0"><defs>
+  <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1faa57"/><stop offset="1" stop-color="#7dffa6"/></linearGradient>
+  <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1faa57"/><stop offset="1" stop-color="#7dffa6"/></linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7dffa6"/><stop offset="1" stop-color="#1faa57"/></linearGradient>
+</defs></svg>
+
+<nav><div class="wrap">
+  <div class="logo">
+    <svg class="mark" viewBox="0 0 40 40" fill="none"><path d="M20 4C10 8 6 18 8 30c12 2 22-4 24-16C28 8 24 5 20 4z" fill="url(#mark)"/><path d="M12 28C16 20 22 15 28 13" stroke="#04130c" stroke-width="2.2" stroke-linecap="round"/></svg>
+    MotiTask
+  </div>
+  <div class="navlinks">
+    <a href="#features" class="hidem">Features</a>
+    <a href="#how" class="hidem">How it works</a>
+    <a href="#download" class="btn">Download</a>
+  </div>
+</div></nav>
+
+<header><div class="wrap hero">
+  <div>
+    <span class="pill">🌿 The most motivating task app</span>
+    <h1>Get it done with a <span class="g">buddy that cheers&nbsp;you&nbsp;on</span>.</h1>
+    <p class="sub">MotiTask isn't another grey checklist. A cheerful little leaf hypes you up, your real voice runs it hands-free, and focus music keeps you in flow. Tasks finally feel good.</p>
+    <div class="cta-row">
+      <a href="#download" class="btn">Download free
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" stroke="#04130c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#how" class="btn ghost">See how it works</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>3-tap</b><span>to start a focus session</span></div>
+      <div class="stat"><b>Hands-free</b><span>say “done” or “skip”</span></div>
+      <div class="stat"><b>All devices</b><span>iPhone · Mac · Android · PC</span></div>
+    </div>
+  </div>
+
+  <div class="phone-stage">
+    <!-- tiki torch with animated fire -->
+    <div class="tiki"><div class="flame"></div><div class="flame inner"></div><div class="cup"></div><div class="pole"></div></div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="scr-title">FOCUS · 9:30 AM</div>
+        <div class="buddy">
+          <svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fg" cx="60" cy="60" r="54"/></svg>
+          <!-- leaf buddy with a face that talks -->
+          <svg viewBox="0 0 96 96" width="96" height="96">
+            <path d="M48 10C26 18 17 40 21 70c30 5 53-9 57-44C68 13 58 8 48 10z" fill="url(#leaf)"/>
+            <path d="M28 64C36 46 50 34 64 28" stroke="#0c3a23" stroke-width="3" stroke-linecap="round" fill="none" opacity=".5"/>
+            <g fill="#04130c"><circle cx="42" cy="44" r="4.5"/><circle cx="60" cy="42" r="4.5"/>
+              <circle cx="43.6" cy="42.4" r="1.4" fill="#fff"/><circle cx="61.6" cy="40.4" r="1.4" fill="#fff"/></g>
+            <circle cx="35" cy="56" r="4" fill="#ff7ac6" opacity=".4"/><circle cx="66" cy="53" r="4" fill="#ff7ac6" opacity=".4"/>
+            <path id="mouth" d="M40 58 Q50 60 60 56 Q50 72 40 58 Z" fill="#04130c"/>
+          </svg>
+        </div>
+        <div class="count-num" id="cd">07:42</div>
+        <div class="count-task">Deep work — write the report</div>
+        <div class="controls">
+          <div class="ctl done">✓</div>
+          <div class="ctl play">❚❚</div>
+          <div class="ctl">⏭</div>
+        </div>
+        <div class="tasklist">
+          <div class="trow"><span class="ck"></span><span>Deep work — write the report</span></div>
+          <div class="trow done"><span class="ck"></span><span>Morning workout</span></div>
+          <div class="trow"><span class="ck"></span><span>Inbox zero</span></div>
+        </div>
+        <div class="voice-chip">🎙️ “done” ✓</div>
+        <div class="mic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#04130c"><path d="M12 14a3 3 0 003-3V6a3 3 0 00-6 0v5a3 3 0 003 3z"/><path d="M19 11a7 7 0 01-14 0M12 18v3" stroke="#04130c" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></header>
+
+<section id="features"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Why it works</div>
+  <h2>Motivation, built in.</h2>
+  <p class="lead">Every feature is designed to make starting easy and finishing satisfying.</p></div>
+  <div class="grid">
+    <div class="feat reveal"><div class="ic">🌿</div><h3>A buddy that talks</h3><p>A cheerful little leaf speaks each task aloud and lights up while it cheers you on — in a warm, natural human voice.</p></div>
+    <div class="feat reveal"><div class="ic">🎙️</div><h3>Hands-free voice control</h3><p>Mid-task and across the room? Just say “done” or “skip.” On-device, private, instant.</p></div>
+    <div class="feat reveal"><div class="ic">🎵</div><h3>Focus music that loops</h3><p>Built-in flow music keeps you in the zone, fading seamlessly so you never lose momentum.</p></div>
+    <div class="feat reveal"><div class="ic">⏱️</div><h3>Gentle countdown rings</h3><p>A calming ring shrinks as time runs down — urgency without anxiety. Resumes right where you left off.</p></div>
+    <div class="feat reveal"><div class="ic">🧳</div><h3>Smart packing lists</h3><p>Photo-based checklists tick off real items one by one, so you never forget the charger again.</p></div>
+    <div class="feat reveal"><div class="ic">🔁</div><h3>Looping daily flow</h3><p>Your routine runs itself, auto-resetting each morning so good days repeat on autopilot.</p></div>
+  </div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">How it works</div>
+  <h2>From overwhelmed to in-flow in 3 taps.</h2>
+  <p class="lead">No setup rabbit holes. Add, press start, and let MotiTask carry the momentum.</p></div>
+  <div class="steps">
+    <div class="step reveal"><h3>Add your tasks</h3><p>Type them in, set minutes, snap a photo for packing lists. Done in seconds.</p></div>
+    <div class="step reveal"><h3>Press start</h3><p>Your leaf buddy announces the first task and the focus music kicks in. The ring starts counting.</p></div>
+    <div class="step reveal"><h3>Just say “done”</h3><p>Finish a task, say the word, and it moves you on — celebrating every win along the way.</p></div>
+  </div>
+</div></section>
+
+<section id="download" class="download"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Get MotiTask</div>
+  <h2>Start your most motivated day.</h2>
+  <p class="lead">Free to download on every device you use.</p></div>
+  <div class="dlbox reveal">
+    <div style="font-size:54px">🌿</div>
+    <h3 style="font-size:24px;margin-top:8px">MotiTask is ready for you</h3>
+    <p style="color:var(--mut);margin-top:6px">Pick your platform and get going in under a minute.</p>
+    <div class="dlgrid">
+      <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.3 5.6c.6-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.2-.5 2.8-1.3z"/></svg><div class="t"><small>Download on the</small><b>App Store</b></div></a>
+      <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.3 5.6c.6-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.2-.5 2.8-1.3z"/></svg><div class="t"><small>Download for</small><b>Mac</b></div></a>
+      <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="#fff"><path d="M4.3 3.1c-.2.2-.3.5-.3.9v16c0 .4.1.7.3.9l.1.1 9-9v-.1l-9-8.8zM16.6 15.4l-2.6-2.6 2.6-2.6 3.1 1.8c.9.5.9 1.3 0 1.8l-3.1 1.6zM14 12.8l-9.1 9 .1.1c.4.3.9.3 1.4 0l10.2-5.8L14 12.8zM6.4 2.9c-.5-.3-1-.3-1.4 0l9.1 8.9 2.6-2.5L6.4 2.9z"/></svg><div class="t"><small>Get it on</small><b>Google Play</b></div></a>
+      <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 5.7l7.5-1v7.2H3V5.7zm0 12.6l7.5 1v-7.1H3v6.1zm8.5 1.2L21 21V12h-9.5v7.5zM11.5 3L21 1.6V11h-9.5V3z"/></svg><div class="t"><small>Download for</small><b>Windows</b></div></a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="logo" style="justify-content:center;margin-bottom:10px">
+    <svg class="mark" viewBox="0 0 40 40" fill="none"><path d="M20 4C10 8 6 18 8 30c12 2 22-4 24-16C28 8 24 5 20 4z" fill="url(#mark)"/><path d="M12 28C16 20 22 15 28 13" stroke="#04130c" stroke-width="2.2" stroke-linecap="round"/></svg>
+    MotiTask
+  </div>
+  © 2026 MotiTask — the most motivating task app. Grown with good vibes. 🌿
+</div></footer>
+
+<script>
+  let t = 462;
+  const cd = document.getElementById('cd');
+  setInterval(()=>{ t = t<=0 ? 462 : t-1; const m=String(Math.floor(t/60)).padStart(2,'0'),s=String(t%60).padStart(2,'0'); cd.textContent=m+':'+s; },1000);
+  const mouth=document.getElementById('mouth');
+  let open=false;
+  setInterval(()=>{ open=!open; mouth.setAttribute('d', open ? 'M40 58 Q50 62 60 56 Q50 78 40 58 Z' : 'M40 58 Q50 60 60 56 Q50 68 40 58 Z'); },180);
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3*0.08)+'s';io.observe(el)});
+</script>
+</body>
+</html>
