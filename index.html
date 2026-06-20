@@ -21,11 +21,14 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.5}
-  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.3;z-index:0;pointer-events:none}
-  .glow.g1{width:480px;height:480px;background:var(--green2);top:-120px;left:-80px}
-  .glow.g2{width:520px;height:520px;background:var(--green);top:240px;right:-160px;opacity:.25}
-  .glow.g3{width:420px;height:420px;background:var(--lime);bottom:-160px;left:30%;opacity:.14}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--txt);overflow-x:hidden;line-height:1.5;
+    /* static gradient glow — no blur filter, so scrolling stays buttery smooth */
+    background:
+      radial-gradient(820px 560px at 8% -6%, rgba(52,227,154,.20), transparent 60%),
+      radial-gradient(760px 620px at 98% 22%, rgba(31,170,87,.18), transparent 58%),
+      radial-gradient(700px 560px at 32% 108%, rgba(125,255,166,.12), transparent 58%),
+      var(--bg);}
+  .glow{display:none}
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
   nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(4,19,12,.65);border-bottom:1px solid var(--stroke)}
