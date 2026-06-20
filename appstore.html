@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TaskWay on the App Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --green:#1faa57; --green2:#34e39a; --lime:#7dffa6; --ink:#1d1d1f; --mut:#6e6e73;
+    --line:#e5e5ea; --blue:#0071e3;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;background:#fff;color:var(--ink);line-height:1.45}
+  .bar{height:44px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--mut);font-weight:600;position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);z-index:10}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+
+  /* product header */
+  .head{display:flex;gap:24px;align-items:center;padding:34px 0 26px;border-bottom:1px solid var(--line)}
+  .icon{width:118px;height:118px;border-radius:26px;flex:none;
+    background:radial-gradient(120% 120% at 30% 20%,#0c3a23,#04130c);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.18)}
+  .icon svg{width:78px;height:78px}
+  .hmeta{flex:1;min-width:0}
+  .hmeta h1{font-size:27px;font-weight:800;letter-spacing:-.02em}
+  .hmeta .sub{color:var(--mut);font-size:16px;margin-top:2px}
+  .hmeta .dev{color:var(--green);font-size:14px;margin-top:10px;font-weight:600}
+  .hrow{display:flex;align-items:center;gap:14px;margin-top:16px}
+  .get{background:var(--green);color:#fff;border:none;font-family:inherit;font-weight:800;font-size:15px;
+    border-radius:999px;padding:8px 30px;cursor:pointer;box-shadow:0 4px 14px rgba(31,170,87,.35)}
+  .iap{color:var(--mut);font-size:11px}
+
+  /* stats strip */
+  .stats{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto}
+  .stat{flex:1;min-width:120px;text-align:center;padding:16px 8px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat .lbl{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .stat .big{font-size:18px;font-weight:800;margin-top:5px;display:flex;align-items:center;justify-content:center;gap:4px}
+  .stat .lbl2{font-size:11px;color:var(--mut);margin-top:3px}
+  .stars{color:#feb500;letter-spacing:-1px}
+
+  /* screenshots */
+  .sec{padding:30px 0;border-bottom:1px solid var(--line)}
+  .sec h2{font-size:21px;font-weight:800;margin-bottom:16px}
+  .shots{display:flex;gap:16px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+  .shots::-webkit-scrollbar{height:8px}.shots::-webkit-scrollbar-thumb{background:#d2d2d7;border-radius:4px}
+  .shot{flex:none;width:250px;scroll-snap-align:start;border-radius:26px;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 6px 20px rgba(0,0,0,.08);
+    background:linear-gradient(180deg,#04130c,#0a2418)}
+  .cap{padding:20px 18px 8px;color:#fff}
+  .cap b{font-size:19px;font-weight:800;line-height:1.15;display:block}
+  .cap span{font-size:12px;color:var(--lime);font-weight:600}
+  .screen{margin:10px;border-radius:20px;background:radial-gradient(120% 70% at 50% 0%,#0a2418,#04120b);
+    padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:330px;position:relative}
+  .leaf{width:64px;height:64px;animation:bob 2.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+  .cd{margin-top:8px;font-size:22px;font-weight:800;color:var(--lime);font-variant-numeric:tabular-nums}
+  .tn{font-size:11px;color:#cfe;margin-top:1px}
+  .btns{display:flex;gap:6px;margin-top:10px}
+  .b{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px}
+  .b.done{background:var(--green2);color:#04130c}.b.play{background:var(--green);color:#04130c}
+  .b.gh{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)}
+  .barsec{width:100%;margin-top:12px;display:flex;flex-direction:column;gap:6px}
+  .greybar{background:rgba(255,255,255,.12);border-radius:7px;padding:6px 9px;font-size:11px;font-weight:700;color:#cfe;display:flex;justify-content:space-between}
+  .trow{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid rgba(140,255,190,.14);border-radius:9px;padding:6px 9px;font-size:11px;color:#eafff2}
+  .ck{width:13px;height:13px;border-radius:50%;border:2px solid #6fae8c;flex:none}
+  .ck.on{background:var(--green2);border-color:var(--green2)}
+  .chip{position:absolute;bottom:12px;font-size:11px;font-weight:700;color:#04130c;background:var(--lime);padding:5px 12px;border-radius:999px}
+  .desc{padding:30px 0;border-bottom:1px solid var(--line);font-size:15px;color:#333;max-width:680px}
+  .desc p{margin-bottom:12px}
+  .feat-li{list-style:none;display:grid;gap:8px;margin-top:6px}
+  .feat-li li{display:flex;gap:9px;align-items:flex-start;font-size:15px}
+  footer{padding:30px 0 60px;color:var(--mut);font-size:12px;text-align:center}
+  .note{background:#f5fff8;border:1px solid #cdeede;border-radius:12px;padding:10px 14px;margin:18px 0;font-size:13px;color:var(--green)}
+</style>
+</head>
+<body>
+<div class="bar">App Store — Preview</div>
+<div class="wrap">
+  <div class="note">📱 This is a design proof of how TaskWay would look on the iPhone App Store (not a live listing).</div>
+
+  <!-- header -->
+  <div class="head">
+    <div class="icon">
+      <svg viewBox="0 0 96 96" fill="none"><path d="M48 8C24 16 14 40 18 76c34 6 60-10 64-50C72 12 60 6 48 8z" fill="url(#g)"/><path d="M30 66C40 44 56 30 72 24" stroke="#04130c" stroke-width="4" stroke-linecap="round"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7dffa6"/><stop offset="1" stop-color="#1faa57"/></linearGradient></defs></svg>
+    </div>
+    <div class="hmeta">
+      <h1>TaskWay</h1>
+      <div class="sub">The most motivating task app</div>
+      <div class="dev">TaskWay Labs</div>
+      <div class="hrow">
+        <button class="get">GET</button>
+        <span class="iap">In-App Purchases</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="stats">
+    <div class="stat"><div class="lbl">4.9 ★★★★★</div><div class="big stars">★★★★★</div><div class="lbl2">2.3K Ratings</div></div>
+    <div class="stat"><div class="lbl">Age</div><div class="big">4+</div><div class="lbl2">Years Old</div></div>
+    <div class="stat"><div class="lbl">Chart</div><div class="big">#3</div><div class="lbl2">Productivity</div></div>
+    <div class="stat"><div class="lbl">Developer</div><div class="big">🌿</div><div class="lbl2">TaskWay Labs</div></div>
+    <div class="stat"><div class="lbl">Language</div><div class="big">EN</div><div class="lbl2">+ 4 more</div></div>
+  </div>
+
+  <!-- screenshots -->
+  <div class="sec">
+    <h2>Preview</h2>
+    <div class="shots">
+      <!-- 1 -->
+      <div class="shot">
+        <div class="cap"><span>MEET YOUR BUDDY</span><b>A leaf that cheers you on</b></div>
+        <div class="screen">
+          <div class="leaf"><svg viewBox="0 0 96 96"><path d="M48 10C26 18 17 40 21 70c30 5 53-9 57-44C68 13 58 8 48 10z" fill="url(#l)"/><g fill="#04130c"><circle cx="42" cy="44" r="4.5"/><circle cx="60" cy="42" r="4.5"/></g><path d="M40 58 Q50 62 60 56 Q50 74 40 58 Z" fill="#04130c"/><defs><linearGradient id="l" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7dffa6"/><stop offset="1" stop-color="#1faa57"/></linearGradient></defs></svg></div>
+          <div class="cd">07:42</div><div class="tn">Deep work — write the report</div>
+          <div class="btns"><div class="b done">✓</div><div class="b play">❚❚</div><div class="b gh">⏭</div></div>
+          <div class="chip">“Keep going — you’ve got this!”</div>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="shot">
+        <div class="cap"><span>HANDS-FREE</span><b>Just say “done” or “skip”</b></div>
+        <div class="screen">
+          <div class="leaf" style="animation-duration:2s"><svg viewBox="0 0 96 96"><path d="M48 10C26 18 17 40 21 70c30 5 53-9 57-44C68 13 58 8 48 10z" fill="url(#l)"/><g fill="#04130c"><circle cx="42" cy="44" r="4.5"/><circle cx="60" cy="42" r="4.5"/></g><path d="M40 58 Q50 60 60 56 Q50 70 40 58 Z" fill="#04130c"/></svg></div>
+          <div class="cd">04:18</div><div class="tn">Morning workout</div>
+          <div class="chip" style="background:var(--green2)">🎙️ “done” ✓</div>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="shot">
+        <div class="cap"><span>STAY ORGANIZED</span><b>Your day in clean thirds</b></div>
+        <div class="screen">
+          <div class="barsec">
+            <div class="greybar">One-Time (3) <span>▾</span></div>
+            <div class="trow"><span class="ck"></span>Call the dentist</div>
+            <div class="greybar" style="color:#ffb4b4">Overdue (1) <span>▾</span></div>
+            <div class="trow"><span class="ck"></span>Send invoice</div>
+            <div class="greybar">Schedule (6) <span>▾</span></div>
+            <div class="trow"><span class="ck on"></span>Stretch</div>
+            <div class="trow"><span class="ck"></span>Deep work</div>
+          </div>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="shot">
+        <div class="cap"><span>STAY IN FLOW</span><b>Focus music, built in</b></div>
+        <div class="screen">
+          <div style="font-size:46px;margin-top:30px">🎵</div>
+          <div class="cd" style="margin-top:16px">11:03</div><div class="tn">Inbox zero</div>
+          <div class="chip">Looping focus tracks 🌿</div>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="shot">
+        <div class="cap"><span>NEVER FORGET</span><b>Smart packing lists</b></div>
+        <div class="screen">
+          <div class="barsec" style="margin-top:6px">
+            <div class="greybar">🧳 Weekend bag</div>
+            <div class="trow"><span class="ck on"></span>Charger</div>
+            <div class="trow"><span class="ck on"></span>Toothbrush</div>
+            <div class="trow"><span class="ck"></span>Headphones</div>
+            <div class="trow"><span class="ck"></span>Sunscreen</div>
+          </div>
+          <div class="chip">Tap photos to pack ✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- description -->
+  <div class="desc">
+    <h2 style="font-size:21px;margin-bottom:12px">About TaskWay</h2>
+    <p><b>TaskWay is the most motivating way to get things done.</b> Instead of another grey checklist, a cheerful leaf buddy coaches you out loud, your real voice runs it hands-free, and focus music keeps you in the zone.</p>
+    <ul class="feat-li">
+      <li>🌿 A talking buddy that cheers you on through every task</li>
+      <li>🎙️ Hands-free voice control — just say “done” or “skip”</li>
+      <li>🗂️ Your day in clean thirds: one-time, overdue, schedule</li>
+      <li>🎵 Built-in looping focus music</li>
+      <li>🧳 Photo-based smart packing lists</li>
+      <li>⏱️ Gentle countdown rings that resume where you left off</li>
+    </ul>
+  </div>
+  <div class="desc" style="border-bottom:none">
+    <h2 style="font-size:21px;margin-bottom:12px">What’s New</h2>
+    <p style="color:var(--mut);font-size:13px">Version 1.0 — Say hello to your leaf buddy, hands-free voice commands, and the new rainforest theme. 🌿</p>
+  </div>
+</div>
+<footer>Design proof · TaskWay Labs · Not affiliated with Apple</footer>
+</body>
+</html>
